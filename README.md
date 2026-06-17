@@ -1,6 +1,6 @@
 MHYYYY 视频转文字
 ==
-本项目是对 B 站 UP 主 MHYYYY 所有发布视频的语音转文字文本存档。
+本项目是对 B 站 UP 主 MHYYYY 发布视频的语音转文字文本存档。
 > 博主的空间：https://space.bilibili.com/199676483
 
 ## 免责声明
@@ -8,9 +8,5 @@ MHYYYY 视频转文字
 * 本项目仅为个人学习与存档目的，不用于任何商业用途。
 * 所有文本内容版权归属于 MHYYYY 本人。
 
-## 贡献指南
-
-欢迎提交 Pull Request 帮助改进：
-
-* 校正识别错误（请附上原视频地址和对应时间戳）
-* 补充缺失视频的文字（请同时在 `list.json` 中添加）
+## 阅读它
+https://rip-mhyyyy.github.io/article/index.html
