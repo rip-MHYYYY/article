@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+</head>
+<body style="text-align: center;">
+<nav><a href="index.html">返回列表</a></nav>
+<article>
+    <header>
+        <h1 id="title"></h1>
+        <time id="created"></time>
+        <p id="description" style="font-weight: lighter"></p>
+    </header>
+    <div id="content" style="white-space: break-spaces;line-height: 1.8"></div>
+</article>
+
+<script>
+    function reportError(message) {
+        document.body.innerHTML = message
+    }
+
+    (async function () {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        if (!id) {
+            reportError('未携带参数 id')
+            return;
+        }
+
+        const list = await (await fetch('./list.json')).json();
+        const articleMeta = list.filter(a => a.id === id)[0];
+        if (!articleMeta) {
+            reportError('文章不存在')
+            return;
+        }
+        const contentUrl = `./src/${encodeURIComponent(id)}.txt`;
+        const content = await (await fetch(contentUrl)).text()
+        document.title = articleMeta.title
+        document.getElementById('title').innerText = articleMeta.title
+        document.getElementById('description').innerText = articleMeta.description
+        const createdElement = document.getElementById('created');
+        const created = new Date(articleMeta.created * 1000).toISOString().substring(0, 10)
+        createdElement.time = created
+        createdElement.textContent = created
+        document.getElementById('content').textContent = content
+    })()
+</script>
+</body>
+</html>

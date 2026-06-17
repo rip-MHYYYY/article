@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MHYYYY 视频转文字</title>
+</head>
+<body>
+<div>
+    <div id="list" style="display:flex;flex-direction:column;gap:8px;text-align: center"></div>
+</div>
+
+<script>
+    async function fetchList() {
+        const response = await fetch('./list.json');
+        if (!response.ok) {
+            throw new Error("加载列表失败")
+        }
+        return await response.json()
+    }
+
+    (async function () {
+        const listContainer = document.getElementById('list');
+        const data = await fetchList()
+        const sorted = data.slice().sort((a, b) => b.created - a.created);
+        sorted.map(item => {
+            const e = document.createElement('a');
+            e.href = `./article.html?id=${encodeURIComponent(item.id)}`
+            e.textContent = item.title
+            return e;
+        }).forEach(e => listContainer.append(e))
+    })();
+</script>
+</body>
+</html>
